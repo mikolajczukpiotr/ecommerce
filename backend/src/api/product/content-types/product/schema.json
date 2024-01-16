@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "maxLength": 71,
+      "required": true,
+      "minLength": 3
+    },
+    "slug": {
+      "type": "uid",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 110
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "tshirt",
+        "hoodie",
+        "jeans",
+        "zip",
+        "pants"
+      ],
+      "default": "tshirt",
+      "required": true
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "red",
+        "blue",
+        "green",
+        "yellow",
+        "black"
+      ],
+      "required": true
+    },
+    "price": {
+      "type": "integer",
+      "required": true
+    },
+    "availableSizes": {
+      "displayName": "availableSizes",
+      "type": "component",
+      "repeatable": false,
+      "component": "available-sizes.available-sizes",
+      "required": true
+    },
+    "availableColors": {
+      "displayName": "color",
+      "type": "component",
+      "repeatable": false,
+      "component": "color.color",
+      "required": true
+    }
+  }
+}

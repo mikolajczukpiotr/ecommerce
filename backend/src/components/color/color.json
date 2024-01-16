@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_color_colors",
+  "info": {
+    "displayName": "color"
+  },
+  "options": {},
+  "attributes": {
+    "red": {
+      "type": "boolean"
+    },
+    "green": {
+      "type": "boolean"
+    },
+    "black": {
+      "type": "boolean"
+    },
+    "blue": {
+      "type": "boolean"
+    },
+    "yellow": {
+      "type": "boolean"
+    }
+  }
+}

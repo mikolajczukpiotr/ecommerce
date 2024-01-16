@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_available_sizes_available_sizes",
+  "info": {
+    "displayName": "availableSizes"
+  },
+  "options": {},
+  "attributes": {
+    "ExtraSmall": {
+      "type": "integer"
+    },
+    "Small": {
+      "type": "integer"
+    },
+    "Medium": {
+      "type": "integer"
+    },
+    "Large": {
+      "type": "integer"
+    },
+    "ExtraLarge": {
+      "type": "integer"
+    }
+  }
+}
