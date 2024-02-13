@@ -1,35 +1,40 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 async function getData() {
-  const res = await fetch("http://localhost:1337/api/products?populate=*", {
-    headers: {
-      Authorization:
-        "Bearer 3aa5b3833c80a431949cc2190b6ad19b1ca4836214b5cd660167477d598d7ccd4b539b6dd5b76f592723c0a46957b1331c00e1060a7c25ac040ca27a667342fc114516d1a430294261cce22312994166132eea06150f9dc16ca0f34cd08657f59f1e279692374ef90b2a67acb1b56dd18671ad309f624609cf1cf41917238df6",
-    },
-  });
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/api/products?populate=*`,
+    {
+      headers: {
+        Authorization:
+          "Bearer bb3a298afbd9a44258d6f847b94d4bb8b17a70dea41bcad27025a7b3d2d6493a2b74b5f40b55b8499f7d935a5e79c0dd937523690bdc3fccf276b0d0fc90712e2d652d17136a48f73c20858e3ac1c4b06519343155a03d73f3c774fc21c45825a3e864d833984693edbeb5b9969bfe3c54798ebc1ac2f4b745db5ac8dc83f8f5",
+      },
+    }
+  );
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    console.log("Failed to fetch data");
   }
 
-  return res.json();
+  const data = await res.json();
+  return data.data ? JSON.parse(JSON.stringify(data.data)) : [];
 }
 
 export default async function Products() {
   const data = await getData();
-  console.log(data);
+  console.log(data, "data");
+  if (!data) return Error("Failed to fetch data");
   return (
     <div className="uppercase">
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-8 mx-auto">
           <div className="flex flex-wrap w-full mb-12">
             <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-              Filtruj
+              Filter
             </p>
           </div>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:gird-cols-3 xl:grid-cols-4">
-            {data.data.map((product) => {
-              console.log(product.attributes.image.data[0].attributes);
+            {data.map((product: any) => {
               return (
                 <Link
                   href={`product/${product.id}`}
@@ -41,11 +46,13 @@ export default async function Products() {
                       className="h-96 rounded w-full object-cover object-center mb-6 transition-transform hover:scale-110"
                       src={
                         product.attributes.image.data
-                          ? `http://localhost:1337${product.attributes.image.data[0].attributes.url}`
+                          ? `${process.env.BACKEND_URL}${product.attributes.image.data[0].attributes.url}`
                           : "https://dummyimage.com/400x400"
                       }
-                      object-fit="cover"
+                      objectFit="cover"
                       alt="content"
+                      width={400}
+                      height={400}
                     />
                     <div className="flex flex-col text-center">
                       <p className="text-lg text-center text-gray-900 font-light title-font mb-4">

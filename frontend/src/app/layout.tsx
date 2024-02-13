@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
-import { StoreProvider } from "@/redux/StoreProvider";
-
-// const inter = Inter({ subsets: ["latin"] });
+import Image from "next/image";
+import Link from "next/link";
+import { useCart } from "@/hooks/use-cart";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,46 +28,47 @@ export default function RootLayout({
           content={metadata.description || "Default Description"}
         />
       </Head>
-      <body className="text-white body-font uppercase ">
+      <body className="text-white body-font uppercase flex flex-col min-h-screen">
         <div className="bg-gray-900">
-          <div className="container  mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center md:justify-between">
-            <div className="flex gap-5">
-              <div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                <img
-                  src="https://media3.giphy.com/media/dyFrL10k1eNm5tZIvU/giphy.gif?cid=6c09b952j9q69uyx8x2nelueto4bzfmj897aiebeudlz7en1&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s"
-                  alt="Logo"
-                  height="80"
-                  width="80"
-                  object-fit="cover"
-                />
-              </div>
-              <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a href="/" className="mr-5 hover:text-gray-400">
+          <div className="container gap-5 mx-auto flex  px-5 flex-col sm:flex-row items-center md:justify-center">
+            <Image
+              src="https://media3.giphy.com/media/dyFrL10k1eNm5tZIvU/giphy.gif?cid=6c09b952j9q69uyx8x2nelueto4bzfmj897aiebeudlz7en1&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s"
+              alt="Logo"
+              height="80"
+              width="80"
+              object-fit="cover"
+            />
+            <div className="hidden w-full sm:flex justify-between">
+              <div className="flex gap-5">
+                <Link href="/" className="hover:text-gray-400">
                   Home
-                </a>
-                <a href="/about" className="mr-5 hover:text-gray-400">
+                </Link>
+                <Link href="/about" className="hover:text-gray-400">
                   About
-                </a>
+                </Link>
 
-                <a href="/products" className="mr-5 hover:text-gray-400">
+                <Link href="/products" className="hover:text-gray-400">
                   Products
-                </a>
-                <a href="/contact" className="mr-5 hover:text-gray-400">
+                </Link>
+                <Link href="/contact" className="hover:text-gray-400">
                   Contact Us
-                </a>
-              </nav>
-            </div>
-            <div className="flex gap-5">
-              <div className="inline-flex items-center  text-base mt-4 md:mt-0">
-                ZALOGUJ
+                </Link>
               </div>
-              <div className="inline-flex items-center  text-base mt-4 md:mt-0">
-                KOSZYK
+              <div className="flex gap-5">
+                <div className="inline-flex items-center  text-base mt-4 md:mt-0">
+                  ZALOGUJ
+                </div>
+                <Link
+                  href="/cart"
+                  className="inline-flex items-center  text-base mt-4 md:mt-0"
+                >
+                  KOSZYK
+                </Link>
               </div>
             </div>
           </div>
         </div>
-        <StoreProvider>{children}</StoreProvider>
+        {children}
       </body>
     </html>
   );
