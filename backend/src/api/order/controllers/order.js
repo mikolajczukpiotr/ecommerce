@@ -14,7 +14,6 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
     let params = JSON.parse(ctx.request.body);
-    console.log(params);
     try {
       // Charge the customer
       await stripe.charges.create({

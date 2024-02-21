@@ -46,7 +46,7 @@ export default async function Products() {
                       className="h-96 rounded w-full object-cover object-center mb-6 transition-transform hover:scale-110"
                       src={
                         product.attributes.image.data
-                          ? `${process.env.BACKEND_URL}${product.attributes.image.data[0].attributes.url}`
+                          ? `${product.attributes.image.data[0].attributes.url}`
                           : "https://dummyimage.com/400x400"
                       }
                       objectFit="cover"

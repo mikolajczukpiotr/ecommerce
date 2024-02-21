@@ -37,7 +37,7 @@ const Cart = () => {
                 alt=""
                 src={
                   product.product.attributes.image.data[0].attributes.url
-                    ? `http://localhost:1337${product.product.attributes.image.data[0].attributes.url}`
+                    ? `${product.product.attributes.image.data[0].attributes.url}`
                     : "https://dummyimage.com/400x400"
                 }
                 width="200"

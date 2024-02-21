@@ -25,7 +25,7 @@ export default async function Home() {
       <Image
         src={
           data.attributes.image.data[0]
-            ? `${process.env.BACKEND_URL}${data.attributes.image.data[0].attributes.url}`
+            ? `${data.attributes.image.data[0].attributes.url}`
             : "https://dummyimage.com/400x400"
         }
         alt="content"

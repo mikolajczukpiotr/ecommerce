@@ -72,7 +72,7 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
               className="-z-10 h-full w-full object-cover object-center"
               src={
                 url.attributes.url
-                  ? `http://localhost:1337${url.attributes.url}`
+                  ? `${url.attributes.url}`
                   : "https://dummyimage.com/400x400"
               }
               alt="Product image"

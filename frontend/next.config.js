@@ -9,10 +9,8 @@ const nextConfig = {
         pathname: "/media/**",
       },
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "1337",
-        pathname: "/uploads/**",
+        protocol: "https",
+        hostname: "correct-acoustics-cb3eb839ab.media.strapiapp.com",
       },
     ],
   },
