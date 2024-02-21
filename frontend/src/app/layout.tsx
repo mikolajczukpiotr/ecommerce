@@ -4,6 +4,8 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/hooks/use-cart";
+import Cart from "./cart/page";
+import CartButton from "@/components/CartButton";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,7 +31,7 @@ export default function RootLayout({
         />
       </Head>
       <body className="text-white body-font uppercase flex flex-col min-h-screen">
-        <div className="bg-gray-900">
+        <div className="bg-gray-900 top-0 sticky">
           <div className="container gap-5 mx-auto flex  px-5 flex-col sm:flex-row items-center md:justify-center">
             <Image
               src="https://media3.giphy.com/media/dyFrL10k1eNm5tZIvU/giphy.gif?cid=6c09b952j9q69uyx8x2nelueto4bzfmj897aiebeudlz7en1&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s"
@@ -58,12 +60,7 @@ export default function RootLayout({
                 <div className="inline-flex items-center  text-base mt-4 md:mt-0">
                   ZALOGUJ
                 </div>
-                <Link
-                  href="/cart"
-                  className="inline-flex items-center  text-base mt-4 md:mt-0"
-                >
-                  KOSZYK
-                </Link>
+                <CartButton />
               </div>
             </div>
           </div>

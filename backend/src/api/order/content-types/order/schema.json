@@ -1,10 +1,11 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "orders",
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "order"
+    "displayName": "order",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -40,10 +41,6 @@
     },
     "amount": {
       "type": "integer",
-      "required": true
-    },
-    "status": {
-      "type": "string",
       "required": true
     }
   }

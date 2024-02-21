@@ -1,18 +1,14 @@
 "use client";
 import { useCart } from "@/hooks/use-cart";
-import { Minus, Plus } from "lucide-react";
+import { HandCoins, Link, Minus, Plus } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import { Product, StateProduct } from "@/types/payloadTypes";
 
 const Cart = () => {
-  const { items, changeQuantity, removeItem, clearCart } = useCart();
-  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+  const { items, changeQuantity, removeItem, totalCost, totalItems } =
+    useCart();
 
-  const totalCost = items.reduce(
-    (acc, item) => acc + item.product.attributes.price * item.quantity,
-    0
-  );
   const changeQuantityHandler = (productId: string, quantity: number) => {
     changeQuantity(productId, quantity);
   };
@@ -22,19 +18,21 @@ const Cart = () => {
   };
 
   return (
-    <div className="text-black h-screen mx-12 my-6 xl:m-auto flex flex-col gap-4">
-      <h1 className="text-3xl font-bold">Cart</h1>
-      <p className="text-gray-500 dark:text-gray-400">
-        You have {totalItems} items in your cart
-      </p>
+    <div className="container text-black gap-5 mx-auto flex px-5 flex-col my-4">
+      <div className="flex items-left flex-col">
+        <h1 className="text-3xl font-bold">Cart</h1>
+        <p className="text-gray-500 dark:text-gray-400">
+          You have {totalItems} items in your cart
+        </p>
+      </div>
 
       {items.map((product: StateProduct) => {
         return (
           <div
             key={product.id}
-            className="flex flex-col md:flex-row items-center justify-between border-2 p-4"
+            className="flex flex-col md:flex-row w-full items-center justify-between border-2 p-4 gap-4"
           >
-            <div className="flex flex-col gap-6 sm:gap-3 md:flex-row items-center -mx-4">
+            <div className="flex flex-col gap-4 sm:gap-3 md:flex-row items-center -mx-4">
               <Image
                 alt=""
                 src={
@@ -50,17 +48,13 @@ const Cart = () => {
                 <h2 className="mb-2 text-xl font-bold">
                   {product.product.attributes.name}
                 </h2>
-                <p className="text-center">
-                  SIZE: {product.product.attributes.size}
-                </p>
+                <p>SIZE: {product.product.attributes.size}</p>
               </div>
             </div>
 
-            <div className=" px-4">
-              <p className="text-lg font-bold text-blue-500 dark:text-gray-400">
-                {product.product.attributes.price} PLN
-              </p>
-            </div>
+            <p className="text-2xl px-4 font-bold text-blue-500 dark:text-gray-400">
+              {product.product.attributes.price} PLN
+            </p>
 
             <div className="px-4">
               <div className="flex items-center px-4  font-semibold text-gray-500 border  rounded-md border-gray-700 ">
@@ -109,6 +103,26 @@ const Cart = () => {
           </div>
         );
       })}
+      <div className="flex w-full justify-between gap-4 text-md font-bold  text-gray-400">
+        <div className="flex flex-col">
+          <p>apply promocode</p>
+          <input
+            type="text"
+            placeholder="Enter your code"
+            className="border-2 uppercase text-sm p-1"
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="">Total: {totalCost} PLN</div>
+          <button
+            type="button"
+            className="text-white bg-[#050708] gap-4 text-2xl uppercase hover:bg-[#050708]/80 focus:ring-4 focus:ring-[#050708]/50 font-medium px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2"
+          >
+            <a href="/cart/payment">CHECKOUT</a>
+            <HandCoins />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

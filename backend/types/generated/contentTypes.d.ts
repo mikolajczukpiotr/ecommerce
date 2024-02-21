@@ -768,6 +768,148 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginStrapiStripeSsProduct extends Schema.CollectionType {
+  collectionName: 'strapi-stripe_ss-product';
+  info: {
+    tableName: 'StripeProduct';
+    singularName: 'ss-product';
+    pluralName: 'ss-products';
+    displayName: 'Product';
+    description: 'Stripe Products';
+    kind: 'collectionType';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+      }>;
+    slug: Attribute.UID<'plugin::strapi-stripe.ss-product', 'title'> &
+      Attribute.Required &
+      Attribute.Unique;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+      }>;
+    price: Attribute.Decimal & Attribute.Required;
+    currency: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+      }>;
+    productImage: Attribute.Media & Attribute.Required;
+    isSubscription: Attribute.Boolean & Attribute.DefaultTo<false>;
+    interval: Attribute.String;
+    trialPeriodDays: Attribute.Integer;
+    stripeProductId: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 3;
+      }>;
+    stripePriceId: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 3;
+      }>;
+    stripePlanId: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 3;
+      }>;
+    stripePayment: Attribute.Relation<
+      'plugin::strapi-stripe.ss-product',
+      'oneToMany',
+      'plugin::strapi-stripe.ss-payment'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::strapi-stripe.ss-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::strapi-stripe.ss-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginStrapiStripeSsPayment extends Schema.CollectionType {
+  collectionName: 'strapi-stripe_ss-payment';
+  info: {
+    tableName: 'StripePayment';
+    singularName: 'ss-payment';
+    pluralName: 'ss-payments';
+    displayName: 'Payment';
+    description: 'Stripe Payment';
+    kind: 'collectionType';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    txnDate: Attribute.DateTime & Attribute.Required;
+    transactionId: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 250;
+      }>;
+    isTxnSuccessful: Attribute.Boolean & Attribute.DefaultTo<false>;
+    txnMessage: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    txnErrorMessage: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 250;
+      }>;
+    txnAmount: Attribute.Decimal & Attribute.Required;
+    customerName: Attribute.String & Attribute.Required;
+    customerEmail: Attribute.String & Attribute.Required;
+    stripeProduct: Attribute.Relation<
+      'plugin::strapi-stripe.ss-payment',
+      'manyToOne',
+      'plugin::strapi-stripe.ss-product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::strapi-stripe.ss-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::strapi-stripe.ss-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiAboutAbout extends Schema.SingleType {
   collectionName: 'abouts';
   info: {
@@ -799,12 +941,37 @@ export interface ApiAboutAbout extends Schema.SingleType {
   };
 }
 
-export interface ApiOrderOrder extends Schema.SingleType {
+export interface ApiHomeHome extends Schema.SingleType {
+  collectionName: 'homes';
+  info: {
+    singularName: 'home';
+    pluralName: 'homes';
+    displayName: 'Home';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    image: Attribute.Media & Attribute.Required;
+    description: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
     singularName: 'order';
     pluralName: 'orders';
     displayName: 'order';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -818,7 +985,6 @@ export interface ApiOrderOrder extends Schema.SingleType {
     name: Attribute.String & Attribute.Required;
     transactionId: Attribute.UID;
     amount: Attribute.Integer & Attribute.Required;
-    status: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -910,7 +1076,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::strapi-stripe.ss-product': PluginStrapiStripeSsProduct;
+      'plugin::strapi-stripe.ss-payment': PluginStrapiStripeSsPayment;
       'api::about.about': ApiAboutAbout;
+      'api::home.home': ApiHomeHome;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
     }

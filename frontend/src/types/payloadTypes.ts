@@ -6,6 +6,7 @@ export type Product = {
 export type StateProduct = {
   product: Product;
   quantity: number;
+  price: number;
   id: string;
 };
 
