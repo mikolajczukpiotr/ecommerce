@@ -4,7 +4,7 @@ module.exports = ({ env }) => ({
     connection: {
       host: env(
         "DATABASE_HOST",
-        "30nS3Tkdpipl4Dx0WFHSg4Kxg8Z7cqJi@dpg-cnav9ota73kc73eoepl0-a.frankfurt-postgres.render.com"
+        "dpg-cnav9ota73kc73eoepl0-a.frankfurt-postgres.render.com"
       ),
       port: env.int("DATABASE_PORT", 5432),
       database: env("DATABASE_NAME", "sample_ivt6"),
