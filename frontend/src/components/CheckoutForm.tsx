@@ -81,10 +81,13 @@ export default function CheckoutForm() {
   async function submitOrder(e: FormEvent) {
     e.preventDefault();
     const cardElement = elements?.getElement(CardElement);
+    if (!stripe || !cardElement) {
+      return;
+    }
     const token = await stripe?.createToken(cardElement);
     const validationErrors = validateForm(data, token);
     if (validationErrors) {
-      setData({ ...data, error: validationErrors });
+      setData({ ...data, error: validationErrors.message });
       return;
     }
     try {
@@ -93,10 +96,10 @@ export default function CheckoutForm() {
       if (!response.ok) {
         throw new Error("Failed to submit order");
       }
-      // setData(INITIAL_STATE);
-      // clearCart();
+      setData(INITIAL_STATE);
+      clearCart();
     } catch (error: any) {
-      setData({ ...data, error: { message: error.message } });
+      setData({ ...data, error: error.message });
     } finally {
       setLoading(false);
     }
@@ -118,7 +121,7 @@ export default function CheckoutForm() {
         {data.error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
             <strong className="font-bold">Error!</strong>{" "}
-            <span className="block sm:inline">{data.error.message}</span>
+            <span className="block sm:inline">{data.error}</span>
           </div>
         )}
         <div className="mt-6">
