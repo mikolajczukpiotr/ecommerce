@@ -1,6 +1,7 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Image from "next/image";
 async function getData() {
+  console.log(process.env.BACKEND_URL, process.env.AUTHORIZATION_HEADER, "env");
   const res = await fetch(`${process.env.BACKEND_URL}/api/home?populate=*`, {
     headers: {
       Authorization: process.env.AUTHORIZATION_HEADER
@@ -8,6 +9,7 @@ async function getData() {
         : "",
     },
   });
+
   if (!res.ok) {
     console.log("Failed to fetch data");
   }
