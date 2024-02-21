@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import CartButton from "@/components/CartButton";
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "Create Next App",
