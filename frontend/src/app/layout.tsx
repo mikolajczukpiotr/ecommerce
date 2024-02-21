@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useCart } from "@/hooks/use-cart";
 import Cart from "./cart/page";
 import CartButton from "@/components/CartButton";
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "Create Next App",
