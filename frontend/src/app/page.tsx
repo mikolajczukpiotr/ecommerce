@@ -18,8 +18,8 @@ async function getData() {
 
 export default async function Home() {
   const data = await getData();
-  console.log(data.attributes, "data");
   if (!data) return Error("Failed to fetch data");
+  if (!data) return null;
   return (
     <div className="flex flex-col w-full text-black">
       <Image

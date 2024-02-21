@@ -16,7 +16,7 @@ const Cart = () => {
   const removeItemHandler = (productId: string) => {
     removeItem(productId);
   };
-
+  if (!items.length) return null;
   return (
     <div className="container text-black gap-5 mx-auto flex px-5 flex-col my-4">
       <div className="flex items-left flex-col">

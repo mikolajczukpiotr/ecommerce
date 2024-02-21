@@ -23,7 +23,6 @@ async function getData(id: number) {
 
 export default async function Product({ params }: { params: { id: number } }) {
   const data = await getData(params.id);
-  console.log(data, "data");
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
