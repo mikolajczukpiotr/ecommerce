@@ -4,17 +4,13 @@ async function getData() {
   console.log(process.env.BACKEND_URL, process.env.AUTHORIZATION_HEADER, "env");
   try {
     const res = await fetch(
-      `${
-        process.env.VERCEL_URL ||
-        "https://correct-acoustics-cb3eb839ab.strapiapp.com"
-      }/api/home?populate=*`,
+      `https://correct-acoustics-cb3eb839ab.strapiapp.com/api/home?populate=*`,
       {
         headers: {
           Authorization: process.env.AUTHORIZATION_HEADER
             ? process.env.AUTHORIZATION_HEADER
             : "",
         },
-        cache: "no-store",
       }
     );
 
