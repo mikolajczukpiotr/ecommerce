@@ -4,11 +4,11 @@ import Image from "next/image";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.BACKEND_URL}/api/products?populate=*`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*`,
     {
       headers: {
-        Authorization: process.env.AUTHORIZATION_HEADER
-          ? process.env.AUTHORIZATION_HEADER
+        Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_HEADER
+          ? process.env.NEXT_PUBLIC_AUTHORIZATION_HEADER
           : "",
       },
     }

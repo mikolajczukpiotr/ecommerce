@@ -6,11 +6,11 @@ export async function sendOrderToBackend(
   totalCost: any,
   token: any
 ) {
-  return await fetch(`http://localhost:1337/api/orders`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`, {
     method: "POST",
     headers: {
-      Authorization: process.env.AUTHORIZATION_HEADER
-        ? process.env.AUTHORIZATION_HEADER
+      Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_HEADER
+        ? process.env.NEXT_PUBLIC_AUTHORIZATION_HEADER
         : "",
     },
     body: JSON.stringify({
