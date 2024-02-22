@@ -27,12 +27,12 @@ async function getData() {
 }
 
 export default async function Home() {
-  const data = await getData();
-  if (!data) return Error("Failed to fetch data");
-  if (!data) return null;
+  // const data = await getData();
+  // if (!data) return Error("Failed to fetch data");
+  // if (!data) return null;
   return (
     <div className="flex flex-col w-full text-black">
-      <Image
+      {/* <Image
         src={
           data.attributes.image.data[0]
             ? `${data.attributes.image.data[0].attributes.url}`
@@ -47,7 +47,7 @@ export default async function Home() {
         <BlocksRenderer
           content={data.attributes.description}
           blocks={data.attributes.description.blocks}
-        />
+        /> */}
       </div>
     </div>
   );
