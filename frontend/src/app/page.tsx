@@ -2,21 +2,32 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Image from "next/image";
 async function getData() {
   console.log(process.env.BACKEND_URL, process.env.AUTHORIZATION_HEADER, "env");
-  const res = await fetch(`${process.env.BACKEND_URL}/api/home?populate=*`, {
-    headers: {
-      Authorization: process.env.AUTHORIZATION_HEADER
-        ? process.env.AUTHORIZATION_HEADER
-        : "",
-    },
-  });
+  try {
+    const res = await fetch(
+      `${
+        process.env.VERCEL_URL ||
+        "https://correct-acoustics-cb3eb839ab.strapiapp.com"
+      }/api/home?populate=*`,
+      {
+        headers: {
+          Authorization: process.env.AUTHORIZATION_HEADER
+            ? process.env.AUTHORIZATION_HEADER
+            : "",
+        },
+        cache: "no-store",
+      }
+    );
 
-  if (!res.ok) {
-    console.log(res, "res");
-    console.log("Failed to fetch data");
+    const data = await res.json();
+    return data.data ? JSON.parse(JSON.stringify(data.data)) : [];
+  } catch (error) {
+    console.log("error inside get route", error);
+    if (error instanceof Error) {
+      return new Response(error.message, { status: 500 });
+    }
+
+    return new Response("Internal Server Error", { status: 500 });
   }
-
-  const data = await res.json();
-  return data.data ? JSON.parse(JSON.stringify(data.data)) : [];
 }
 
 export default async function Home() {
