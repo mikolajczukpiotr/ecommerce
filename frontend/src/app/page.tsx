@@ -48,7 +48,7 @@ export default async function Home() {
           content={data.attributes.description}
           blocks={data.attributes.description.blocks}
         /> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
